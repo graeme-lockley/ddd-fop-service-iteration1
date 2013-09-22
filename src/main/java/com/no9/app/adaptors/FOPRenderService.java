@@ -9,9 +9,9 @@ import org.apache.fop.apps.FOPException;
 import javax.servlet.ServletContext;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
-import java.io.*;
-
-import static org.apache.commons.io.IOUtils.closeQuietly;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 public class FOPRenderService implements RenderService {
     private FOPUtils fopUtils;
@@ -24,21 +24,8 @@ public class FOPRenderService implements RenderService {
     public void toPDF(TemplateID templateID, InputStream source, OutputStream output) throws RenderException {
         try {
             fopUtils.xmlToPDF(new StreamSource(source), fopUtils.getXSLTemplate(templateID.getTemplateURI()), output);
-        } catch (FOPException|IOException|TransformerException ex) {
+        } catch (FOPException | IOException | TransformerException ex) {
             throw new RenderException(ex);
-         }
-    }
-
-    @Override
-    public void toPDF(TemplateID templateID, File sourceFile, OutputStream output) throws RenderException {
-        InputStream source = null;
-        try {
-            source = new FileInputStream(sourceFile);
-            toPDF(templateID, source, output);
-        } catch (FileNotFoundException ex) {
-            throw new RenderException(ex);
-        } finally {
-            closeQuietly(source);
         }
     }
 }
