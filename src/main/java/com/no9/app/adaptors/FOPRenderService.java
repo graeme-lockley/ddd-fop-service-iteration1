@@ -7,6 +7,7 @@ import com.no9.app.utils.FOPUtils;
 import org.apache.fop.apps.FOPException;
 
 import javax.servlet.ServletContext;
+import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
@@ -23,9 +24,17 @@ public class FOPRenderService implements RenderService {
     @Override
     public void toPDF(TemplateID templateID, InputStream source, OutputStream output) throws RenderException {
         try {
-            fopUtils.xmlToPDF(new StreamSource(source), fopUtils.getXSLTemplate(templateID.getTemplateURI()), output);
+            fopUtils.xmlToPDF(getXmlSource(source), getXslTemplate(templateID), output);
         } catch (FOPException | IOException | TransformerException ex) {
             throw new RenderException(ex);
         }
+    }
+
+    private Templates getXslTemplate(TemplateID templateID) throws TransformerException {
+        return fopUtils.getXSLTemplate(templateID.getTemplateURI());
+    }
+
+    private StreamSource getXmlSource(InputStream source) {
+        return new StreamSource(source);
     }
 }
