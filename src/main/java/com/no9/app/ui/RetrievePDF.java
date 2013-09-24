@@ -3,8 +3,8 @@ package com.no9.app.ui;
 import com.no9.app.adaptors.FOPRenderService;
 import com.no9.app.services.RenderException;
 import com.no9.app.services.RenderService;
-import com.no9.app.services.TemplateID;
 import com.no9.app.utils.Resource;
+import com.no9.app.utils.TemplateID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

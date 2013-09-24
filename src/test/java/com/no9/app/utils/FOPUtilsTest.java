@@ -1,6 +1,5 @@
 package com.no9.app.utils;
 
-import com.no9.app.services.TemplateID;
 import org.junit.Before;
 import org.junit.Test;
 
