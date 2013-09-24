@@ -17,11 +17,7 @@ import java.util.Map;
 
 public class FOPUtils implements Serializable {
     private static FopFactory fopFactory = FopFactory.newInstance();
-    private static Map<TemplateID, Templates> xslTemplatesCache;
-
-    static {
-        resetCache();
-    }
+    private Map<TemplateID, Templates> xslTemplatesCache = Collections.synchronizedMap(new HashMap<TemplateID, Templates>());
 
     public FOPUtils() {
     }
@@ -51,9 +47,5 @@ public class FOPUtils implements Serializable {
 
     private ResourceResolver getResolver() {
         return new ResourceResolver();
-    }
-
-    public static void resetCache() {
-        xslTemplatesCache = Collections.synchronizedMap(new HashMap<TemplateID, Templates>());
     }
 }

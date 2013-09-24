@@ -12,38 +12,26 @@ import static org.junit.Assert.*;
 
 public class FOPUtilsTest {
     private FOPUtils fopUtils;
-    private static final TemplateID XSLT_TEMPLATE_ID = new TemplateID("resource://HelloWorld.xsl");
+    private static final TemplateID VALID_XSLT_TEMPLATE_ID = new TemplateID("resource://HelloWorld.xsl");
     private static final TemplateID UNKNOWN_XSLT_TEMPLATE_ID = new TemplateID("resource://Bob.xsl");
     private final Resource xmlSourceResource = new Resource("Hello.xml");
 
     @Before
     public void setUp() throws Exception {
-//        servletContext = new MockUp<ServletContext>() {
-//            @Mock
-//            public InputStream getResourceAsStream(String resourceName) {
-//                numberOfCallsToGetResourceAsStream += 1;
-//                try {
-//                    return new FileInputStream("src/main/webapp" + resourceName);
-//                } catch (FileNotFoundException e) {
-//                    return null;
-//                }
-//            }
-//        }.getMockInstance();
-        FOPUtils.resetCache();
         fopUtils = new FOPUtils();
     }
 
     @Test
     public void should_get_an_XML_template() throws Exception {
-        Templates template = fopUtils.getXSLTemplate(XSLT_TEMPLATE_ID);
+        Templates template = fopUtils.getXSLTemplate(VALID_XSLT_TEMPLATE_ID);
 
         assertNotNull(template);
     }
 
     @Test
     public void should_show_that_the_template_is_pulled_out_of_the_cache() throws Exception {
-        Templates firstTemplate = fopUtils.getXSLTemplate(XSLT_TEMPLATE_ID);
-        Templates secondTemplate = fopUtils.getXSLTemplate(XSLT_TEMPLATE_ID);
+        Templates firstTemplate = fopUtils.getXSLTemplate(VALID_XSLT_TEMPLATE_ID);
+        Templates secondTemplate = fopUtils.getXSLTemplate(VALID_XSLT_TEMPLATE_ID);
 
         assertEquals(firstTemplate, secondTemplate);
     }
@@ -55,7 +43,7 @@ public class FOPUtilsTest {
 
     @Test
     public void should_render_the_XML_content_using_the_XSLT() throws Exception {
-        Templates template = fopUtils.getXSLTemplate(XSLT_TEMPLATE_ID);
+        Templates template = fopUtils.getXSLTemplate(VALID_XSLT_TEMPLATE_ID);
         StreamSource xmlSource = xmlAsStreamSource(xmlSourceResource.toFile());
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
