@@ -10,12 +10,11 @@ import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class FOPUtils implements Serializable {
+public class FOPUtils {
     private static FopFactory fopFactory = FopFactory.newInstance();
     private Map<TemplateID, Templates> xslTemplatesCache = Collections.synchronizedMap(new HashMap<TemplateID, Templates>());
 
