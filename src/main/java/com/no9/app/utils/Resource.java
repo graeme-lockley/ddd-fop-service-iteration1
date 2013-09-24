@@ -12,7 +12,7 @@ public class Resource {
         this.resourceName = resourceName;
     }
 
-    private File toFile() {
+    public File toFile() {
         return new File(getResourceFileName());
     }
 
