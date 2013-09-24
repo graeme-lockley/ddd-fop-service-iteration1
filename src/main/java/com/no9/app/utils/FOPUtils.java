@@ -42,11 +42,15 @@ public class FOPUtils implements Serializable {
     }
 
     private Templates loadTemplate(String xsltTemplateName) throws TransformerException {
-        URIResolver uriResolver = new ResourceResolver();
+        URIResolver uriResolver = getResolver();
         Source xsltSource = uriResolver.resolve(xsltTemplateName, null);
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         transformerFactory.setURIResolver(uriResolver);
         return transformerFactory.newTemplates(xsltSource);
+    }
+
+    private ResourceResolver getResolver() {
+        return new ResourceResolver();
     }
 
     public static void resetCache() {
