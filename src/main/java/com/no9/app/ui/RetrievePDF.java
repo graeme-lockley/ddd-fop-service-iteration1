@@ -15,10 +15,10 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class RetrievePDF extends HttpServlet {
-    private RenderService renderService;
+    private RenderService renderService = new FOPRenderService();
 
     private static final Resource XML_SOURCE_RESOURCE = new Resource("Hello.xml");
-    private static final TemplateID XSLT_TEMPLATE_ID = new TemplateID("/HelloWorld.xsl");
+    private static final TemplateID XSLT_TEMPLATE_ID = new TemplateID("resource://HelloWorld.xsl");
     private static final String RESULT_FILE_NAME = "HelloWorld.pdf";
 
     @Override
@@ -27,18 +27,11 @@ public class RetrievePDF extends HttpServlet {
         resp.setHeader("Content-Disposition", "attachment; filename=\"" + RESULT_FILE_NAME + "\"");
 
         try (InputStream inputStream = XML_SOURCE_RESOURCE.toInputStream()) {
-            getRenderService().toPDF(XSLT_TEMPLATE_ID, inputStream, resp.getOutputStream());
-        } catch (FileNotFoundException|RenderException ex) {
+            renderService.toPDF(XSLT_TEMPLATE_ID, inputStream, resp.getOutputStream());
+        } catch (FileNotFoundException | RenderException ex) {
             resp.setContentType("text/html");
             resp.getOutputStream().println("<h1>Exception</h1>");
             resp.getOutputStream().println(ex.getMessage());
         }
-    }
-
-    private RenderService getRenderService() {
-        if (renderService == null) {
-            renderService = new FOPRenderService(getServletContext());
-        }
-        return renderService;
     }
 }

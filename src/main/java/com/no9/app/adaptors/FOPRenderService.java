@@ -6,7 +6,6 @@ import com.no9.app.services.TemplateID;
 import com.no9.app.utils.FOPUtils;
 import org.apache.fop.apps.FOPException;
 
-import javax.servlet.ServletContext;
 import javax.xml.transform.Templates;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.stream.StreamSource;
@@ -17,8 +16,8 @@ import java.io.OutputStream;
 public class FOPRenderService implements RenderService {
     private FOPUtils fopUtils;
 
-    public FOPRenderService(ServletContext servletContext) {
-        fopUtils = new FOPUtils(servletContext);
+    public FOPRenderService() {
+        fopUtils = new FOPUtils();
     }
 
     @Override

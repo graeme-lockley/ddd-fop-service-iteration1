@@ -69,6 +69,7 @@ public class RetrievePDFTest {
     private HttpTester getResponse() throws Exception {
         HttpTester response = new HttpTester();
         response.parse(servletTester.getResponses(request.generate()));
+
         return response;
     }
 }
