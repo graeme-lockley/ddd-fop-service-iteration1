@@ -14,6 +14,8 @@ import static org.junit.Assert.*;
 public class FOPUtilsTest {
     private FOPUtils fopUtils;
     private static final TemplateID XSLT_TEMPLATE_ID = new TemplateID("resource://HelloWorld.xsl");
+    private static final TemplateID UNKNOWN_XSLT_TEMPLATE_ID = new TemplateID("resource://Bob.xsl");
+    private final Resource xmlSourceResource = new Resource("Hello.xml");
 
     @Before
     public void setUp() throws Exception {
@@ -49,13 +51,13 @@ public class FOPUtilsTest {
 
     @Test(expected = javax.xml.transform.TransformerException.class)
     public void should_raise_an_exception_for_an_unknown_template() throws Exception {
-        fopUtils.getXSLTemplate("resource://Bob.xsl");
+        fopUtils.getXSLTemplate(UNKNOWN_XSLT_TEMPLATE_ID.getTemplateURI());
     }
 
     @Test
     public void should_render_the_XML_content_using_the_XSLT() throws Exception {
         Templates template = fopUtils.getXSLTemplate(XSLT_TEMPLATE_ID.getTemplateURI());
-        StreamSource xmlSource = xmlAsStreamSource(getResourceFile("Hello.xml"));
+        StreamSource xmlSource = xmlAsStreamSource(xmlSourceResource.toFile());
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         fopUtils.xmlToPDF(xmlSource, template, outputStream);
@@ -66,10 +68,6 @@ public class FOPUtilsTest {
 
     private StreamSource xmlAsStreamSource(File xmlFile) {
         return new StreamSource(xmlFile);
-    }
-
-    private File getResourceFile(String resourceName) {
-        return new File(FOPUtilsTest.class.getClassLoader().getResource(resourceName).getFile());
     }
 }
 
