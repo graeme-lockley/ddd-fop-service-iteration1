@@ -35,27 +35,27 @@ public class FOPUtilsTest {
 
     @Test
     public void should_get_an_XML_template() throws Exception {
-        Templates template = fopUtils.getXSLTemplate(XSLT_TEMPLATE_ID.getTemplateURI());
+        Templates template = fopUtils.getXSLTemplate(XSLT_TEMPLATE_ID);
 
         assertNotNull(template);
     }
 
     @Test
     public void should_show_that_the_template_is_pulled_out_of_the_cache() throws Exception {
-        Templates firstTemplate = fopUtils.getXSLTemplate(XSLT_TEMPLATE_ID.getTemplateURI());
-        Templates secondTemplate = fopUtils.getXSLTemplate(XSLT_TEMPLATE_ID.getTemplateURI());
+        Templates firstTemplate = fopUtils.getXSLTemplate(XSLT_TEMPLATE_ID);
+        Templates secondTemplate = fopUtils.getXSLTemplate(XSLT_TEMPLATE_ID);
 
         assertEquals(firstTemplate, secondTemplate);
     }
 
     @Test(expected = javax.xml.transform.TransformerException.class)
     public void should_raise_an_exception_for_an_unknown_template() throws Exception {
-        fopUtils.getXSLTemplate(UNKNOWN_XSLT_TEMPLATE_ID.getTemplateURI());
+        fopUtils.getXSLTemplate(UNKNOWN_XSLT_TEMPLATE_ID);
     }
 
     @Test
     public void should_render_the_XML_content_using_the_XSLT() throws Exception {
-        Templates template = fopUtils.getXSLTemplate(XSLT_TEMPLATE_ID.getTemplateURI());
+        Templates template = fopUtils.getXSLTemplate(XSLT_TEMPLATE_ID);
         StreamSource xmlSource = xmlAsStreamSource(xmlSourceResource.toFile());
 
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();

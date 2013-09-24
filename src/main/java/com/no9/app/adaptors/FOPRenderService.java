@@ -30,7 +30,7 @@ public class FOPRenderService implements RenderService {
     }
 
     private Templates getXslTemplate(TemplateID templateID) throws TransformerException {
-        return fopUtils.getXSLTemplate(templateID.getTemplateURI());
+        return fopUtils.getXSLTemplate(templateID);
     }
 
     private StreamSource getXmlSource(InputStream source) {

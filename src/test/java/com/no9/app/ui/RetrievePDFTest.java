@@ -1,6 +1,7 @@
 package com.no9.app.ui;
 
 import com.no9.app.utils.FOPUtils;
+import com.no9.app.utils.TemplateID;
 import mockit.Mock;
 import mockit.MockUp;
 import org.junit.Before;
@@ -45,7 +46,7 @@ public class RetrievePDFTest {
     public void should_return_an_error_page() throws Exception {
         new MockUp<FOPUtils>() {
             @Mock
-            public Templates getXSLTemplate(String xsltTemplateName) throws TransformerException {
+            public Templates getXSLTemplate(TemplateID xsltTemplateID) throws TransformerException {
                 throw new TransformerException("Mock Exception");
             }
         };

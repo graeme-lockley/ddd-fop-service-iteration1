@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class FOPUtils implements Serializable {
     private static FopFactory fopFactory = FopFactory.newInstance();
-    private static Map<String, Templates> xslTemplatesCache;
+    private static Map<TemplateID, Templates> xslTemplatesCache;
 
     static {
         resetCache();
@@ -32,18 +32,18 @@ public class FOPUtils implements Serializable {
         template.newTransformer().transform(xmlSource, res);
     }
 
-    public Templates getXSLTemplate(String xsltTemplateName) throws TransformerException {
-        Templates templates = xslTemplatesCache.get(xsltTemplateName);
+    public Templates getXSLTemplate(TemplateID xsltTemplateID) throws TransformerException {
+        Templates templates = xslTemplatesCache.get(xsltTemplateID);
         if (templates == null) {
-            templates = loadTemplate(xsltTemplateName);
-            xslTemplatesCache.put(xsltTemplateName, templates);
+            templates = loadTemplate(xsltTemplateID);
+            xslTemplatesCache.put(xsltTemplateID, templates);
         }
         return templates;
     }
 
-    private Templates loadTemplate(String xsltTemplateName) throws TransformerException {
+    private Templates loadTemplate(TemplateID xsltTemplateID) throws TransformerException {
         URIResolver uriResolver = getResolver();
-        Source xsltSource = uriResolver.resolve(xsltTemplateName, null);
+        Source xsltSource = uriResolver.resolve(xsltTemplateID.getTemplateURI(), null);
         TransformerFactory transformerFactory = TransformerFactory.newInstance();
         transformerFactory.setURIResolver(uriResolver);
         return transformerFactory.newTemplates(xsltSource);
@@ -54,6 +54,6 @@ public class FOPUtils implements Serializable {
     }
 
     public static void resetCache() {
-        xslTemplatesCache = Collections.synchronizedMap(new HashMap<String, Templates>());
+        xslTemplatesCache = Collections.synchronizedMap(new HashMap<TemplateID, Templates>());
     }
 }
