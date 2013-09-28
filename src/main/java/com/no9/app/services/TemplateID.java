@@ -1,4 +1,4 @@
-package com.no9.app.utils;
+package com.no9.app.services;
 
 public class TemplateID {
     final private String templateURI;

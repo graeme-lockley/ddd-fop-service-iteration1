@@ -1,9 +1,9 @@
 package com.no9.app.adaptors;
 
+import com.no9.app.ports.FOPUtils;
 import com.no9.app.services.RenderException;
 import com.no9.app.services.RenderService;
-import com.no9.app.utils.FOPUtils;
-import com.no9.app.utils.TemplateID;
+import com.no9.app.services.TemplateID;
 import org.apache.fop.apps.FOPException;
 
 import javax.xml.transform.Templates;

@@ -2,8 +2,7 @@ package com.no9.app.ui;
 
 import com.no9.app.services.RenderException;
 import com.no9.app.services.ServiceRegistry;
-import com.no9.app.utils.Resource;
-import com.no9.app.utils.TemplateID;
+import com.no9.app.services.TemplateID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

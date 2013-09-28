@@ -1,7 +1,7 @@
 package com.no9.app.ui;
 
-import com.no9.app.utils.FOPUtils;
-import com.no9.app.utils.TemplateID;
+import com.no9.app.ports.FOPUtils;
+import com.no9.app.services.TemplateID;
 import mockit.Mock;
 import mockit.MockUp;
 import org.junit.Before;
