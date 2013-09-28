@@ -11,16 +11,22 @@ public class TemplateID {
         return templateURI;
     }
 
+    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     @Override
-    public boolean equals(Object object) {
-        if (this == object) {
-            return true;
-        }
-        if (object == null || getClass() != object.getClass()) {
-            return false;
-        }
+    public boolean equals(Object other) {
+        return sameObject(other) || notNullAndSameClass(other) && contentEquals((TemplateID) other);
+    }
 
-        return templateURI.equals(((TemplateID) object).templateURI);
+    private boolean sameObject(Object other) {
+        return this == other;
+    }
+
+    private boolean notNullAndSameClass(Object other) {
+        return other != null && getClass() == other.getClass();
+    }
+
+    private boolean contentEquals(TemplateID other) {
+        return templateURI.equals(other.templateURI);
     }
 
     @Override
